@@ -24,6 +24,10 @@ receivers:
 
 exporters:
   otlp:
+    endpoint: "tempo:4317"
+    tls:
+      insecure: true
+  otlp/jaeger:
     endpoint: "jaeger:4317"
     tls:
       insecure: true
@@ -49,7 +53,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [spanmetrics, batch]
-      exporters: [logging, otlp]
+      exporters: [logging, otlp, otlp/jaeger]
     metrics:
       receivers: [otlp]
       processors: [transform, batch]
