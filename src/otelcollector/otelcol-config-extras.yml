@@ -1,2 +1,13 @@
 # extra settings to be merged into OpenTelemetry Collector configuration
 # do not delete this file
+
+exporters:
+  otlp/tempo:
+    endpoint: "tempo:4317"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      exporters: [logging, otlp, otlp/tempo]
